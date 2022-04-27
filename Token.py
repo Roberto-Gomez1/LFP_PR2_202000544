@@ -3,6 +3,7 @@ class Token():
     tipo = 0
     fila = 0
     columna = 0
+    
     RESULTADO = 1
     VS = 2
     TEMPORADA = 3

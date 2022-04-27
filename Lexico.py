@@ -4,7 +4,7 @@ class Analizador:
     tokens= []
     estado = 1
     fila = 1
-    columna = 1
+    columna = 0
     generar = False
     lista=[]
     var_aux=''
@@ -13,7 +13,7 @@ class Analizador:
         self.estado = 1
         self.lexema = ''
         self.tokens = []
-        self.fila = 0
+        self.fila = 1
         self.columna = 0
         self.generar = True
         tipos = Token("lexema", -1, -1, -1)
@@ -31,14 +31,25 @@ class Analizador:
                     self.columna += 1
                     self.lexema += actual
                     continue
+                elif actual.isdigit():
+                    self.estado = 4
+                    self.columna += 1
+                    self.lexema += actual
+                    continue
+                elif actual == "<":
+                    self.estado = 5
+                    self.columna += 1
+                    self.lexema += actual
+                    continue
+                elif actual == "-":
+                    self.estado = 2
+                    self.columna += 1
+                    #self.lexema += actual
+                    continue
                 elif actual == '"':
                     self.estado = 3
                     self.columna += 1
                     self.lexema += actual
-                    continue
-                elif actual =="-":
-                    self.estado =2
-                    self.columna +=1
                     continue
                 elif actual == ' ':
                     self.columna +=1
@@ -88,6 +99,29 @@ class Analizador:
                     self.columna += 1
                     self.lexema += actual
                     self.AgregarToken(tipos.CADENA)
+                    continue
+            if self.estado == 5:
+                if actual != ">":
+                    self.estado = 5
+                    self.columna += 1
+                    self.lexema += actual
+                elif actual == ">":
+                    self.estado = 6
+                    self.columna += 1
+                    self.lexema += actual
+                    self.AgregarToken(tipos.FECHA)
+                    continue
+
+            if self.estado == 4:
+                if actual.isdigit():
+                    self.estado = 4
+                    self.columna += 1
+                    self.lexema += actual
+                    continue
+                else: 
+                    self.AgregarToken(tipos.NUMERO)
+                    i -= 1
+                    continue
 
     def AgregarToken(self,tipo):
         self.tokens.append(Token(self.lexema, tipo, self.fila, self.columna))
