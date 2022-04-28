@@ -45,7 +45,7 @@ def enviar_men():
     lexico = Analizador(texto)
     lexico.Imprimir()
     lexico.ImprimirErrores()
-    sintactico = Sintactico(lexico.tokens)
+    #sintactico = Sintactico(lexico.tokens)
     
 
 root =Tk()

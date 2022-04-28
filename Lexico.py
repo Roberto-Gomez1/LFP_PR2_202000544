@@ -82,7 +82,7 @@ class Analizador:
                     continue
                 else:
                     if self.Reservada():
-                        self.AgregarToken(self.tipo.name)
+                        self.AgregarToken(self.tipo)
                         i -= 1
                         continue
                     else:
@@ -135,55 +135,56 @@ class Analizador:
         palabra = self.lexema.upper();
         #lista_palabras = ['RESULTADO', 'VS','TEMPORADA','JORNADA','GOLES', 'LOCAL', 'VISITANTE','TOTAL','TABLA_TEMPORADA','PARTIDOS','TOP','SUPERIOR','INFERIOR','ADIOS','F','JI','JF']
         if palabra == 'RESULTADO':
-            self.tipo = TypeToken.RESULTADO  
+            self.tipo = TypeToken.RESULTADO.name  
             return True
         if palabra == 'VS':
-            self.tipo = TypeToken.VS 
+            self.tipo = TypeToken.VS.name 
             return True
         if palabra == 'TEMPORADA':
-            self.tipo = TypeToken.TEMPORADA
+            self.tipo = TypeToken.TEMPORADA.name
             return True
         if palabra == 'JORNADA':
-            self.tipo = TypeToken.JORNADA
+            self.tipo = TypeToken.JORNADA.name
             return True
         if palabra == 'GOLES':
-            self.tipo = TypeToken.GOLES
+            self.tipo = TypeToken.GOLES.name
             return True
         if palabra == 'LOCAL':
-            self.tipo = TypeToken.G_LOCAL
+            self.tipo = TypeToken.G_LOCAL.name
             return True
         if palabra == 'VISITANTE':
-            self.tipo = TypeToken.G_VISITANTE
+            self.tipo = TypeToken.G_VISITANTE.name
             return True
         if palabra == 'TOTAL':
-            self.tipo = TypeToken.G_TOTAL
+            self.tipo = TypeToken.G_TOTAL.name
             return True
         if palabra == 'TABLA_TEMPORADA':
-            self.tipo = TypeToken.TABLA_TEM
+            self.tipo = TypeToken.TABLA_TEM.name
             return True
         if palabra == 'PARTIDOS':
-            self.tipo = TypeToken.PARTIDOS
+            self.tipo = TypeToken.PARTIDOS.name
             return True
         if palabra == 'TOP':
-            self.tipo = TypeToken.TOP
+            self.tipo = TypeToken.TOP.name
             return True
         if palabra == 'SUPERIOR':
-            self.tipo = TypeToken.SUPERIOR
+            self.tipo = TypeToken.SUPERIOR.name
             return True
         if palabra == 'INFERIOR':
-            self.tipo = TypeToken.INFERIOR
+            self.tipo = TypeToken.INFERIOR.name
             return True
         if palabra == 'ADIOS':
-            self.tipo = TypeToken.ADIOS
+            self.tipo = TypeToken.ADIOS.name
             return True
         if palabra == '-F':
-            self.tipo = TypeToken.F
+            self.tipo = TypeToken.F.name
             return True
         if palabra == '-JI':
-            self.tipo = TypeToken.JI
+            self.tipo = TypeToken.JI.name
             return True
         if palabra == '-JF':
-            self.tipo = TypeToken.JF
+            self.tipo = TypeToken.JF.name
+            return True
         return False
 
     def Imprimir(self):

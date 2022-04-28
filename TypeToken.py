@@ -12,8 +12,8 @@ class TypeToken(Enum):
     G_TOTAL = 9
     TABLA_TEM = 10
     PARTIDOS = 11
-    JI = 12
-    JF = 13
+    JF = 12
+    JI = 13
     TOP = 14
     N = 15
     SUPERIOR = 16
