@@ -8,6 +8,7 @@ import tkinter.font as tkFont
 from tkinter import filedialog
 import webbrowser
 from Lexico import Analizador
+from Sintactico import Sintactico
 
 def boton_cargaArchivo_command():
     data = []
@@ -43,6 +44,8 @@ def enviar_men():
     textt.insert(tk.INSERT,texto)
     lexico = Analizador(texto)
     lexico.Imprimir()
+    lexico.ImprimirErrores()
+    sintactico = Sintactico(lexico.tokens)
     
 
 root =Tk()
