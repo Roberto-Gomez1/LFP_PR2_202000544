@@ -16,8 +16,8 @@ class TypeToken(Enum):
     JI = 13
     TOP = 14
     N = 15
-    SUPERIOR = 16
-    INFERIOR = 17
+    SUP = 16
+    INF = 17
     ADIOS = 18
     CADENA = 19
     NUMERO = 20

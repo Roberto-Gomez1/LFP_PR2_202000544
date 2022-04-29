@@ -41,7 +41,7 @@ class Analizador:
                 elif actual == "<":
                     self.estado = 5
                     self.columna += 1
-                    self.lexema += actual
+                    #self.lexema += actual
                     continue
                 elif actual == "-":
                     self.estado = 2
@@ -51,7 +51,7 @@ class Analizador:
                 elif actual == '"':
                     self.estado = 3
                     self.columna += 1
-                    self.lexema += actual
+                    #self.lexema += actual
                     continue
                 elif actual == ' ':
                     self.columna +=1
@@ -82,7 +82,7 @@ class Analizador:
                     continue
                 else:
                     if self.Reservada():
-                        self.AgregarToken(self.tipo)
+                        self.AgregarToken(self.tipo.name)
                         i -= 1
                         continue
                     else:
@@ -99,7 +99,7 @@ class Analizador:
                 elif actual == '"':
                     self.estado = 4
                     self.columna += 1
-                    self.lexema += actual
+                    #self.lexema += actual
                     self.AgregarToken(TypeToken.CADENA.name)
                     continue
             if self.estado == 5:
@@ -110,7 +110,7 @@ class Analizador:
                 elif actual == ">":
                     self.estado = 6
                     self.columna += 1
-                    self.lexema += actual
+                    #self.lexema += actual
                     self.AgregarToken(TypeToken.FECHA.name)
                     continue
 
@@ -135,66 +135,66 @@ class Analizador:
         palabra = self.lexema.upper();
         #lista_palabras = ['RESULTADO', 'VS','TEMPORADA','JORNADA','GOLES', 'LOCAL', 'VISITANTE','TOTAL','TABLA_TEMPORADA','PARTIDOS','TOP','SUPERIOR','INFERIOR','ADIOS','F','JI','JF']
         if palabra == 'RESULTADO':
-            self.tipo = TypeToken.RESULTADO.name  
+            self.tipo = TypeToken.RESULTADO  
             return True
         if palabra == 'VS':
-            self.tipo = TypeToken.VS.name 
+            self.tipo = TypeToken.VS 
             return True
         if palabra == 'TEMPORADA':
-            self.tipo = TypeToken.TEMPORADA.name
+            self.tipo = TypeToken.TEMPORADA
             return True
         if palabra == 'JORNADA':
-            self.tipo = TypeToken.JORNADA.name
+            self.tipo = TypeToken.JORNADA
             return True
         if palabra == 'GOLES':
-            self.tipo = TypeToken.GOLES.name
+            self.tipo = TypeToken.GOLES
             return True
         if palabra == 'LOCAL':
-            self.tipo = TypeToken.G_LOCAL.name
+            self.tipo = TypeToken.C_GOLES
             return True
         if palabra == 'VISITANTE':
-            self.tipo = TypeToken.G_VISITANTE.name
+            self.tipo = TypeToken.C_GOLES
             return True
         if palabra == 'TOTAL':
-            self.tipo = TypeToken.G_TOTAL.name
+            self.tipo = TypeToken.C_GOLES
             return True
-        if palabra == 'TABLA_TEMPORADA':
-            self.tipo = TypeToken.TABLA_TEM.name
+        if palabra == 'TABLA':
+            self.tipo = TypeToken.TABLA_TEM
             return True
         if palabra == 'PARTIDOS':
-            self.tipo = TypeToken.PARTIDOS.name
+            self.tipo = TypeToken.PARTIDOS
             return True
         if palabra == 'TOP':
-            self.tipo = TypeToken.TOP.name
+            self.tipo = TypeToken.TOP
             return True
         if palabra == 'SUPERIOR':
-            self.tipo = TypeToken.SUPERIOR.name
+            self.tipo = TypeToken.C_TOP
             return True
         if palabra == 'INFERIOR':
-            self.tipo = TypeToken.INFERIOR.name
+            self.tipo = TypeToken.C_TOP
             return True
         if palabra == 'ADIOS':
-            self.tipo = TypeToken.ADIOS.name
+            self.tipo = TypeToken.ADIOS
             return True
         if palabra == '-F':
-            self.tipo = TypeToken.F.name
+            self.tipo = TypeToken.F
             return True
         if palabra == '-JI':
-            self.tipo = TypeToken.JI.name
+            self.tipo = TypeToken.JI
             return True
         if palabra == '-JF':
-            self.tipo = TypeToken.JF.name
+            self.tipo = TypeToken.JF
             return True
         return False
 
-    def Imprimir(self):
+    def ImprimirTo(self):
         print("---Tokens---")
         tipos = Token("lexema", -1, -1, -1)
         for x in self.tokens:
             if str(x.tipo) != "DESCONOCIDO":
                 print(x.lexema," --> ",str(x.tipo),' --> ',str(x.fila), ' --> ',str(x.columna))
 
-    def ImprimirErrores(self):
+    def ImprimirEr(self):
         print("---TokensErrores---")
         tipos = Token("lexema", -1, -1, -1)
         for x in self.tokens:
@@ -281,3 +281,83 @@ class Analizador:
                 aux_evento = self.tokens[x+6].getLexema().replace('"',"")
                 print(aux_evento)
                 #self.lista.append(lista(aux_tipo,aux_valor,"","","",aux_evento))
+    def reporteTokens(self):
+
+        print("Se ha generado el reporte")
+        f = open('ReporteTokens.html','w')
+        f.write("<!doctype html>")
+        f.write("<html lang=\"en\">")
+        f.write("<head>")
+        f.write("<!-- Required meta tags -->")
+        f.write(" <meta charset=\"utf-8\">")
+        f.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">")
+        f.write("<!-- Bootstrap CSS -->")
+        f.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">")
+        f.write("<title>Reporte Tokens</title>")
+        f.write("<style>table, th, td {border: 1px solid black; text-align: center}""</style>")
+        f.write("</head>")
+        f.write("<body>")
+        f.write("<H1 style=\"color:white; background-color:teal\">\n<center> REPORTE TOKENS</center>\n</H1>\n")
+        f.write("<h3>Roberto Gómez - 202000544</h3>")
+        f.write("<center><table><tr><th>Posicion</th><th>Lexema</th><th>Token</th><th>Fila</th><th>Columna</th></tr>")
+        j=1
+        tipos = Token("lexema", -1, -1, -1)
+        for x in self.tokens:
+            if x.tipo != "DESCONOCIDO":
+                f.write("<tr class=\"table-primary\">")
+                f.write("<center><td><h4>"+ str(j) +"</h4></td>"+"<td><h4>" +str(x.lexema) +"</h4></td>"+"<td><h4>"+ str(x.tipo)+"</h4></td>"+"<td><h4>"+ str(x.fila)+"</h4></td>"+ "<td><h4>"+str(x.columna)+"</h4></td></center>")
+                f.write("</tr>")
+            j+=1
+        f.write("</table></center>")
+        f.write("<!-- Optional JavaScript; choose one of the two! -->")
+        f.write("<tr class=\"table-primary\">")
+        f.write(" <!-- Option 1: Bootstrap Bundle with Popper -->")
+        f.write("<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj\" crossorigin=\"anonymous\"></script>")
+        f.write("<!-- Option 2: Separate Popper and Bootstrap JS -->")
+        f.write(" <!--")
+        f.write("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" integrity=\"sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp\" crossorigin=\"anonymous\"></script>")
+        f.write("<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" integrity=\"sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/\" crossorigin=\"anonymous\"></script>")
+        f.write("-->")
+        f.write("</body>")
+        f.write("</html>")
+        f.close()
+
+    def reporteErorres(self):
+        print("Se ha generado el reporte")
+        f = open('ReporteErrores.html','w')
+        f.write("<!doctype html>")
+        f.write("<html lang=\"en\">")
+        f.write("<head>")
+        f.write("<!-- Required meta tags -->")
+        f.write(" <meta charset=\"utf-8\">")
+        f.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">")
+        f.write("<!-- Bootstrap CSS -->")
+        f.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">")
+        f.write("<title>Reporte Errores</title>")
+        f.write("<style>table, th, td {border: 1px solid black; text-align: center}""</style>")
+        f.write("</head>")
+        f.write("<body>")
+        f.write("<H1 style=\"color:white; background-color:teal\">\n<center> REPORTE ERRORES</center>\n</H1>\n")
+        f.write("<h3>Roberto Gómez - 202000544</h3>")
+        f.write("<center><table><tr><th>Posicion</th><th>Lexema</th><th>Token</th><th>Fila</th><th>Columna</th></tr>")
+        j=1
+        tipos = Token("lexema", -1, -1, -1)
+        for x in self.tokens:
+            if x.tipo == "DESCONOCIDO":
+                f.write("<tr class=\"table-primary\">")
+                f.write("<center><td><h4>"+ str(j) +"</h4></td>"+"<td><h4>" +str(x.lexema) +"</h4></td>"+"<td><h4>"+ str(x.tipo)+"</h4></td>"+"<td><h4>"+ str(x.fila)+"</h4></td>"+ "<td><h4>"+str(x.columna)+"</h4></td></center>")
+                f.write("</tr>")
+            j+=1
+        f.write("</table></center>")
+        f.write("<!-- Optional JavaScript; choose one of the two! -->")
+        f.write("<tr class=\"table-primary\">")
+        f.write(" <!-- Option 1: Bootstrap Bundle with Popper -->")
+        f.write("<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj\" crossorigin=\"anonymous\"></script>")
+        f.write("<!-- Option 2: Separate Popper and Bootstrap JS -->")
+        f.write(" <!--")
+        f.write("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" integrity=\"sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp\" crossorigin=\"anonymous\"></script>")
+        f.write("<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" integrity=\"sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/\" crossorigin=\"anonymous\"></script>")
+        f.write("-->")
+        f.write("</body>")
+        f.write("</html>")
+        f.close()

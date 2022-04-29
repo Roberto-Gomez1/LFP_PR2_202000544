@@ -14,7 +14,7 @@ class Sintactico:
         self.preanalisis = self.lista[self.posicion].tipo
         self.Inicio()
 
-    def Match(self, tip):
+    def Emparejamiento(self, tip):
         if self.preanalisis != tip:
             print(str(self.lista[self.posicion].tipo), "-- Sintactico", "-- Se esperaba "+str(tip))
             self.errorSintactico = True
@@ -49,57 +49,57 @@ class Sintactico:
             self.Repetir()
     
     def Resultado(self):
-        self.Match(TypeToken.RESULTADO.name)
-        self.Match(TypeToken.CADENA.name)
-        self.Match(TypeToken.VS.name)
-        self.Match(TypeToken.CADENA.name)
-        self.Match(TypeToken.TEMPORADA.name)
-        self.Match(TypeToken.FECHA.name)
+        self.Emparejamiento(TypeToken.RESULTADO.name)
+        self.Emparejamiento(TypeToken.CADENA.name)
+        self.Emparejamiento(TypeToken.VS.name)
+        self.Emparejamiento(TypeToken.CADENA.name)
+        self.Emparejamiento(TypeToken.TEMPORADA.name)
+        self.Emparejamiento(TypeToken.FECHA.name)
     
     def Jornada(self):
-       self.Match(TypeToken.JORNADA.name)
-       self.Match(TypeToken.NUMERO.name)
-       self.Match(TypeToken.TEMPORADA.name)
-       self.Match(TypeToken.FECHA.name)
-       self.Match(TypeToken.F.name)
-       self.Match(TypeToken.PALABRAS.name)
+       self.Emparejamiento(TypeToken.JORNADA.name)
+       self.Emparejamiento(TypeToken.NUMERO.name)
+       self.Emparejamiento(TypeToken.TEMPORADA.name)
+       self.Emparejamiento(TypeToken.FECHA.name)
+       self.Emparejamiento(TypeToken.F.name)
+       self.Emparejamiento(TypeToken.PALABRAS.name)
 
     def Goles(self):
-        self.Match(TypeToken.GOLES.name)
-        self.Match(TypeToken.C_GOLES.name)
-        self.Match(TypeToken.CADENA.name)
-        self.Match(TypeToken.TEMPORADA.name)
-        self.Match(TypeToken.FECHA.name)
+        self.Emparejamiento(TypeToken.GOLES.name)
+        self.Emparejamiento(TypeToken.C_GOLES.name)
+        self.Emparejamiento(TypeToken.CADENA.name)
+        self.Emparejamiento(TypeToken.TEMPORADA.name)
+        self.Emparejamiento(TypeToken.FECHA.name)
     
     def Tabla_Temp(self):
-        self.Match(TypeToken.TABLA_TEM.name)
-        self.Match(TypeToken.TEMPORADA.name)
-        self.Match(TypeToken.FECHA.name)
-        self.Match(TypeToken.F.name)
-        self.Match(TypeToken.PALABRAS.name)
+        self.Emparejamiento(TypeToken.TABLA_TEM.name)
+        self.Emparejamiento(TypeToken.TEMPORADA.name)
+        self.Emparejamiento(TypeToken.FECHA.name)
+        self.Emparejamiento(TypeToken.F.name)
+        self.Emparejamiento(TypeToken.PALABRAS.name)
     
     def Partidos(self):
-        self.Match(TypeToken.PARTIDOS.name)
-        self.Match(TypeToken.CADENA.name)
-        self.Match(TypeToken.TEMPORADA.name)
-        self.Match(TypeToken.FECHA.name)
-        self.Match(TypeToken.F.name)
-        self.Match(TypeToken.PALABRAS.name)
-        self.Match(TypeToken.JI.name)
-        self.Match(TypeToken.NUMERO.name)
-        self.Match(TypeToken.JF.name)
-        self.Match(TypeToken.NUMERO.name)
+        self.Emparejamiento(TypeToken.PARTIDOS.name)
+        self.Emparejamiento(TypeToken.CADENA.name)
+        self.Emparejamiento(TypeToken.TEMPORADA.name)
+        self.Emparejamiento(TypeToken.FECHA.name)
+        self.Emparejamiento(TypeToken.F.name)
+        self.Emparejamiento(TypeToken.PALABRAS.name)
+        self.Emparejamiento(TypeToken.JI.name)
+        self.Emparejamiento(TypeToken.NUMERO.name)
+        self.Emparejamiento(TypeToken.JF.name)
+        self.Emparejamiento(TypeToken.NUMERO.name)
 
     def Top(self):
-        self.Match(TypeToken.TOP.name)
-        self.Match(TypeToken.C_TOP.name)
-        self.Match(TypeToken.TEMPORADA.name)
-        self.Match(TypeToken.FECHA.name)
-        self.Match(TypeToken.N.name)
-        self.Match(TypeToken.NUMERO.name)
+        self.Emparejamiento(TypeToken.TOP.name)
+        self.Emparejamiento(TypeToken.C_TOP.name)
+        self.Emparejamiento(TypeToken.TEMPORADA.name)
+        self.Emparejamiento(TypeToken.FECHA.name)
+        self.Emparejamiento(TypeToken.N.name)
+        self.Emparejamiento(TypeToken.NUMERO.name)
     
     def Adios(self):
-        self.Match(TypeToken.ADIOS.name)
+        self.Emparejamiento(TypeToken.ADIOS.name)
     
     def Repetir(self):
         if TypeToken.RESULTADO.name == self.preanalisis:
