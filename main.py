@@ -27,11 +27,11 @@ def buscar_tec():
     print("Manual Técnico")
 
 
-
 def enviar_men():
     aux = lectura()
     texto = textt1.get(1.0,'end')
     textt.insert(tk.INSERT,texto)
+    textt2.insert(tk.INSERT,texto)
     lexico = Analizador(texto)
     lexico.ImprimirTo()
     lexico.ImprimirEr()
@@ -59,13 +59,13 @@ def enviar_men():
             f.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">")
             f.write("<!-- Bootstrap CSS -->")
             f.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">")
-            f.write("<title>Reporte Tokens</title>")
+            f.write("<title>Reporte Jornada</title>")
             f.write("<style>table, th, td {border: 1px solid black; text-align: center}""</style>")
             f.write("</head>")
             f.write("<body>")
-            f.write("<H1 style=\"color:white; background-color:teal\">\n<center> REPORTE TOKENS</center>\n</H1>\n")
+            f.write("<H1 style=\"color:white; background-color:teal\">\n<center> REPORTE JORNADA</center>\n</H1>\n")
             f.write("<h3>Roberto Gómez - 202000544</h3>")
-            f.write("<center><table><tr><th>Posicion</th><th>Lexema</th><th>Token</th><th>Fila</th><th>Columna</th></tr>")
+            f.write("<center><table><tr><th>Posicion</th><th>Temporada</th><th>Local</th><th>Marcador Local</th><th>Visitante</th><th>Marcador Visitante</th></tr>")
             k=1
             for x in range(len(aux)):
                 if str(aux[x].temporada) == cadena2:
@@ -131,13 +131,13 @@ def enviar_men():
             f.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">")
             f.write("<!-- Bootstrap CSS -->")
             f.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">")
-            f.write("<title>Reporte Tokens</title>")
+            f.write("<title>Reporte Partidos</title>")
             f.write("<style>table, th, td {border: 1px solid black; text-align: center}""</style>")
             f.write("</head>")
             f.write("<body>")
-            f.write("<H1 style=\"color:white; background-color:teal\">\n<center> REPORTE TOKENS</center>\n</H1>\n")
+            f.write("<H1 style=\"color:white; background-color:teal\">\n<center> REPORTE PARTIDOS</center>\n</H1>\n")
             f.write("<h3>Roberto Gómez - 202000544</h3>")
-            f.write("<center><table><tr><th>Posicion</th><th>Lexema</th><th>Token</th><th>Fila</th><th>Columna</th></tr>")
+            f.write("<center><table><tr><th>Posicion</th><th>Local</th><th>Marcador Local</th><th>Visitante</th><th>Marcador Visitante</th></tr>")
             k=1
             for x in range(len(aux)):
                 if str(aux[x].temporada) == cadena2:
@@ -181,13 +181,13 @@ def enviar_men():
             f.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">")
             f.write("<!-- Bootstrap CSS -->")
             f.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">")
-            f.write("<title>Reporte Tokens</title>")
+            f.write("<title>Reporte Temporada</title>")
             f.write("<style>table, th, td {border: 1px solid black; text-align: center}""</style>")
             f.write("</head>")
             f.write("<body>")
-            f.write("<H1 style=\"color:white; background-color:teal\">\n<center> REPORTE TOKENS</center>\n</H1>\n")
+            f.write("<H1 style=\"color:white; background-color:teal\">\n<center> REPORTE TEMPORADA</center>\n</H1>\n")
             f.write("<h3>Roberto Gómez - 202000544</h3>")
-            f.write("<center><table><tr><th>Posicion</th><th>Lexema</th><th>Token</th><th>Fila</th><th>Columna</th></tr>")
+            f.write("<center><table><tr><th>Posicion</th><th>Equipo</th><th>Puntaje</th></tr>")
             k=1
             for x in range(len(aux)):
                 if str(aux[x].temporada) == cadena2:
@@ -201,7 +201,6 @@ def enviar_men():
                         a.append(Tablita(aux[x].local,1))
                         a.append(Tablita(aux[x].visitante,1))
 
-                if str(aux[x].temporada) == cadena2:
                     aux_equipo.append(aux[x].local)
             a.sort(key=lambda x:x.equipo, reverse=False)
             for bb in aux_equipo:
@@ -236,21 +235,128 @@ def enviar_men():
             f.write("</body>")
             f.write("</html>")
             f.close()
+        
+        if lexico.tokens[j].tipo == TypeToken.TOP.name:
+            l = 0
+            v = 0
+            total = 0
+            c = str(lexico.tokens[j+1].lexema)
+            cadena2 = str(lexico.tokens[j+3].lexema)
+            cadena4 = int(lexico.tokens[j+5].lexema)
+            a = []
+            aux_equipo=[]
+            total = []
+            tabla=[]
+            textt.insert(tk.INSERT,"Se generara un archivo top "+c+" Temporada "+cadena2)
+            f = open('Top.html','w')
+            f.write("<!doctype html>")
+            f.write("<html lang=\"en\">")
+            f.write("<head>")
+            f.write("<!-- Required meta tags -->")
+            f.write(" <meta charset=\"utf-8\">")
+            f.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">")
+            f.write("<!-- Bootstrap CSS -->")
+            f.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We\" crossorigin=\"anonymous\">")
+            f.write("<title>Reporte Top</title>")
+            f.write("<style>table, th, td {border: 1px solid black; text-align: center}""</style>")
+            f.write("</head>")
+            f.write("<body>")
+            f.write("<H1 style=\"color:white; background-color:teal\">\n<center> REPORTE TOP</center>\n</H1>\n")
+            f.write("<h3>Roberto Gómez - 202000544</h3>")
+            f.write("<center><table><tr><th>Posicion</th><th>Equipo</th><th>Punteo</th></tr>")
+            k=1
+            for x in range(len(aux)):
+                if str(aux[x].temporada) == cadena2:
+                    if int(aux[x].mar_l) > int(aux[x].mar_v):
+                        a.append(Tablita(aux[x].local,3))
+                        a.append(Tablita(aux[x].visitante,0))
+                    elif int(aux[x].mar_l) < int(aux[x].mar_v):
+                        a.append(Tablita(aux[x].local,0))
+                        a.append(Tablita(aux[x].visitante,3))
+                    elif int(aux[x].mar_l) == int(aux[x].mar_v):
+                        a.append(Tablita(aux[x].local,1))
+                        a.append(Tablita(aux[x].visitante,1))
+                    aux_equipo.append(aux[x].local)
 
+            a.sort(key=lambda x:x.equipo, reverse=False)
+            for bb in aux_equipo:
+                if bb not in total:
+                    total.append(bb)
+            total.sort()
+            suma = []       
+            for x in total:
+                for k in range(len(a)):
+                    if x == str(a[k].equipo):
+                        suma.append(a[k].puntos)
+                        suma1 = sum(suma)
+                    else:
+                        
+                        suma.clear() 
+                tabla.append(Tablita_1(x,suma1))
+            if c == "SUPERIOR":
+                tabla.sort(key=lambda x:x.puntos, reverse=True)
+                for z in range(cadena4):
+                    f.write("<tr class=\"table-primary\">")
+                    f.write("<center><td><h4>"+ str(z) +"</h4></td>"+"<td><h4>" +str(tabla[z].equipo) +"</h4></td>"+"<td><h4>"+ str(tabla[z].puntos)+"</h4></td></center>")
+                    f.write("</tr>")
+                f.write("</table></center>")
+                f.write("<!-- Optional JavaScript; choose one of the two! -->")
+                f.write("<tr class=\"table-primary\">")
+                f.write(" <!-- Option 1: Bootstrap Bundle with Popper -->")
+                f.write("<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj\" crossorigin=\"anonymous\"></script>")
+                f.write("<!-- Option 2: Separate Popper and Bootstrap JS -->")
+                f.write(" <!--")
+                f.write("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" integrity=\"sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp\" crossorigin=\"anonymous\"></script>")
+                f.write("<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" integrity=\"sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/\" crossorigin=\"anonymous\"></script>")
+                f.write("-->")
+                f.write("</body>")
+                f.write("</html>")
+                f.close()
+            if c == "INFERIOR":
+                tabla.sort(key=lambda x:x.puntos, reverse=False)
+                for z in range(cadena4):
+                    f.write("<tr class=\"table-primary\">")
+                    f.write("<center><td><h4>"+ str(z) +"</h4></td>"+"<td><h4>" +str(tabla[z].equipo) +"</h4></td>"+"<td><h4>"+ str(tabla[z].puntos)+"</h4></td></center>")
+                    f.write("</tr>")
+                f.write("</table></center>")
+                f.write("<!-- Optional JavaScript; choose one of the two! -->")
+                f.write("<tr class=\"table-primary\">")
+                f.write(" <!-- Option 1: Bootstrap Bundle with Popper -->")
+                f.write("<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj\" crossorigin=\"anonymous\"></script>")
+                f.write("<!-- Option 2: Separate Popper and Bootstrap JS -->")
+                f.write(" <!--")
+                f.write("<script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js\" integrity=\"sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp\" crossorigin=\"anonymous\"></script>")
+                f.write("<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js\" integrity=\"sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/\" crossorigin=\"anonymous\"></script>")
+                f.write("-->")
+                f.write("</body>")
+                f.write("</html>")
+                f.close()
         if lexico.tokens[j].tipo == TypeToken.ADIOS.name:
             messagebox.showinfo(message="ADIOS",title="Despedida")
             sys.exit()
 
 def report_error():
-    texto = textt1.get(1.0,'end')
+    texto = textt2.get(1.0,'end')
     lexico = Analizador(texto)
     lexico.reporteErorres()
+
+def log_error():
+    texto = textt1.get(1.0,'end')
+    lexico = Analizador(texto)
+    lexico.Limpiar_Error()
+    textt2.delete(1.0,'end')
+
+def log_token():
+    texto = textt1.get(1.0,'end')
+    lexico = Analizador(texto)
+    lexico.Limpiar_Token()
+    textt2.delete(1.0,'end')
 
 def boton_cargaArchivo_command():
     textt1.delete(1.0,'end')
 
 def report_token():
-    texto = textt1.get(1.0,'end')
+    texto = textt2.get(1.0,'end')
     lexico = Analizador(texto)
     lexico.reporteTokens()
 
@@ -271,6 +377,10 @@ textt.insert(tk.INSERT, "Bienvenido a la Liga Bot, Ingrese un comando\n")
 textt1 = tk.Text(root)
 textt1["font"] = fuente
 textt1.place(x=75,y=525,width= 550, height=40)
+
+textt2 = tk.Text(root)
+textt2["font"] = fuente
+textt2.place(x=955,y=525,width= 550, height=40)
 
 cArchivo=tk.Button(root)
 cArchivo["font"] = fuente

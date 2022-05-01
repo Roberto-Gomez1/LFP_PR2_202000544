@@ -179,6 +179,9 @@ class Analizador:
         if palabra == '-F':
             self.tipo = TypeToken.F
             return True
+        if palabra == '-N':
+            self.tipo = TypeToken.N
+            return True
         if palabra == '-JI':
             self.tipo = TypeToken.JI
             return True
@@ -201,6 +204,11 @@ class Analizador:
             if str(x.tipo) == "DESCONOCIDO":
                 print(str(x.lexema)," --> ",str(x.fila), ' --> ',str(x.columna),'--> Error Lexico')
 
+    def Limpiar_Error(self):
+        self.tokens.clear()
+    
+    def Limpiar_Token(self):
+        self.tokens.clear()
 
     def guardarDatos(self):
         tipos = Token("lexema", -1, -1, -1)
